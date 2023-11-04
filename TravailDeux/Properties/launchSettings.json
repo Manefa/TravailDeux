@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TravailDeux (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TravailDeux (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

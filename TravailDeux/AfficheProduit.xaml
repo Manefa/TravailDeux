@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TravailDeux.AfficheProduit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravailDeux"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto">
+            <StackPanel Orientation="Horizontal" Padding="10 0 0 0">
+                <Button x:Name="retour" Click="retour_Click" Margin="0 0 10 0">Ajouter un produit</Button>
+                <TextBox x:Name="tbCode" Visibility="Collapsed" Text="" />
+
+            </StackPanel>
+            <GridView x:Name="produitsGridView" SelectionChanged="produitsGridView_SelectionChanged" ItemsSource="{x:Bind listeProduits}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Produit">
+                        <GridViewItem>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock FontWeight="Bold" Text="{x:Bind Modele}" />
+                                <TextBlock Text="{x:Bind Meuble}" />
+                                <TextBlock Text="{x:Bind Categorie}" />
+                                <TextBlock Text="{x:Bind Couleur}" />
+                                <TextBlock Text="{x:Bind Prix}" />
+                                <TextBox x:Name="tbCode" Visibility="Collapsed" Text="{x:Bind Code}" />
+
+                                <Button x:Name="supprimer" Click="supprimer_Click">Supprimer</Button>
+                            </StackPanel>
+                        </GridViewItem>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </StackPanel>
+        <Frame x:Name="afficheFrame" Grid.Row="1" />
+    </Grid>
+
+    
+
+</Page>
