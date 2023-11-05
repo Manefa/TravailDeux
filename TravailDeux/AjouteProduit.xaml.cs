@@ -138,5 +138,10 @@ namespace TravailDeux
 
 
         }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(AfficheProduit));
+        }
     }
 }

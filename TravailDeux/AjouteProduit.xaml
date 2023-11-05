@@ -11,6 +11,7 @@
 
     <StackPanel  Orientation="Vertical" x:Name="mainpanel" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Height="Auto">
 
+        <Button x:Name="back" Click="back_Click">Retour</Button>
 
         <Grid>
             <Grid.RowDefinitions>

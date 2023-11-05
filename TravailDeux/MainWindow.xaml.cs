@@ -67,65 +67,71 @@ namespace TravailDeux
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hWnd);
 
             //sélectionne le fichier à lire
-            Windows.Storage.StorageFile monFichier = await picker.PickSingleFileAsync();
+            Windows.Storage.StorageFile monFichier = null;
 
-            //ouvre le fichier et lit le contenu
-            var lignes = await Windows.Storage.FileIO.ReadLinesAsync(monFichier);
-
-            List<Produit> liste = new List<Produit>();
-
-            /*boucle permettant de lire chacune des lignes du fichier
-            * et de remplir une liste d'objets de type CLient
-            */
-            foreach (var ligne in lignes)
+            try
             {
-                var v = ligne.Split(";");
-                SingletonListeBD.GetInstance().Ajouter(new Produit
+                // Demande à l'utilisateur de choisir un fichier à lire
+                monFichier = await picker.PickSingleFileAsync();
+            }
+            catch (Exception ex)
+            {
+                // gestion d'exception ici
+            }
+
+            if (monFichier != null)
+            {
+                //ouvre le fichier et lit le contenu
+                var lignes = await Windows.Storage.FileIO.ReadLinesAsync(monFichier);
+
+                List<Produit> liste = new List<Produit>();
+
+                /*boucle permettant de lire chacune des lignes du fichier
+                * et de remplir une liste d'objets de type CLient
+                */
+                foreach (var ligne in lignes)
                 {
-                    Code = Convert.ToInt32(v[0] as string),
-                    Meuble = v[1],
-                    Categorie = v[2],
-                    Couleur = v[3],
-                    Modele = v[4],
-                    Prix = Convert.ToDouble((v[5] as string).Substring(0, (v[5] as string).Length - 1) , CultureInfo.InvariantCulture)
-                });
-                liste.Add(new Produit
-                {
-                    Code = Convert.ToInt32(v[0] as string),
-                    Meuble = v[1],
-                    Categorie = v[2],
-                    Couleur = v[3],
-                    Modele = v[4],
-                    Prix = Convert.ToDouble(v[5] as string, CultureInfo.InvariantCulture)
-                });
+                    var v = ligne.Split(";");
+                    SingletonListeBD.GetInstance().Ajouter(new Produit
+                    {
+                        Code = Convert.ToInt32(v[0] as string),
+                        Meuble = v[1],
+                        Categorie = v[2],
+                        Couleur = v[4],
+                        Modele = v[3],
+                        Prix = Convert.ToDouble((v[5] as string).Substring(0, (v[5] as string).Length - 1), CultureInfo.InvariantCulture)
+                    });
+                    liste.Add(new Produit
+                    {
+                        Code = Convert.ToInt32(v[0] as string),
+                        Meuble = v[1],
+                        Categorie = v[2],
+                        Couleur = v[4],
+                        Modele = v[3],
+                        Prix = Convert.ToDouble(v[5] as string, CultureInfo.InvariantCulture)
+                    });
+
+                }
+
+                //on peut mettre la liste de Clients comme source d'une listView
+                //produitsGridView.ItemsSource = liste;
+
+                mainFrame.Navigate(typeof(AfficheProduit));
+            }
+            else
+            {
+                ContentDialog dialog = new ContentDialog();
+                dialog.XamlRoot = mainpanel.XamlRoot;
+                dialog.Title = "Information";
+                dialog.CloseButtonText = "OK";
+                dialog.Content = "Aucun fichier n'a ete selectionner";
+
+                var result = await dialog.ShowAsync();
 
             }
 
-            //on peut mettre la liste de Clients comme source d'une listView
-            //produitsGridView.ItemsSource = liste;
 
-            mainFrame.Navigate(typeof(AfficheProduit));
 
-        }
-
-        private void sauvegardedata_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ajouterProduit_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.Navigate(typeof(AjouteProduit));
-        }
-
-        private void produitsGridView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
-        private void listeProduit_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.Navigate(typeof(AfficheProduit));
         }
     }
 }

@@ -44,7 +44,7 @@ namespace TravailDeux
                 tbMeuble.Text = produit.Meuble;
                 tbCategorie.Text = produit.Categorie;
                 tbCouleur.Text = produit.Couleur;
-                nbPrice.Text = produit.Prix.ToString();
+                nbPrice.Value = Convert.ToDouble(produit.Prix);
             }
         }
 
@@ -141,7 +141,7 @@ namespace TravailDeux
                 dialog.XamlRoot = mainpanel.XamlRoot;
                 dialog.Title = "Information";
                 dialog.CloseButtonText = "OK";
-                dialog.Content = "Produit ajouter avec success";
+                dialog.Content = "Produit modifier avec success";
 
                 var result = await dialog.ShowAsync();
 

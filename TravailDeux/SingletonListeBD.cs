@@ -112,7 +112,7 @@ namespace ExerxiceNavigation
             {
                 MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = $"Select * from produits where code = @code";
+                commande.CommandText = $"Select * from produits where code = @id";
                 commande.Parameters.AddWithValue("@id", code);
                 con.Open();
                 MySqlDataReader r = commande.ExecuteReader();
@@ -178,8 +178,6 @@ namespace ExerxiceNavigation
         {
             try
             {
-                Debug.WriteLine("fsdf");
-                Debug.WriteLine(produit.Code);
                 MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
                 commande.CommandText = $"update produits set modele = @modele, meuble = @meuble, " +

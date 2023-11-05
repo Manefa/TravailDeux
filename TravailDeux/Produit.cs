@@ -26,6 +26,11 @@ namespace TravailDeux
         {
             return $"code: {Code} - modele: {Modele} - meuble: {Meuble} - categorie: {Categorie} - couleur: {Couleur} - prix: {Prix}";
         }
+
+        public string ToStringCSV()
+        {
+            return $"{Code};  {Modele}; {Meuble}; {Categorie}; {Couleur}; {Prix}";
+        }
     }
 
 }

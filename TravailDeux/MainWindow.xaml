@@ -29,13 +29,9 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto">
+        <StackPanel Grid.Row="0" Grid.Column="1" x:Name="mainpanel"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Height="Auto">
             <StackPanel Orientation="Horizontal" Padding="10 0 0 0">
                 <Button x:Name="chargedata" Click="chargedata_Click" Margin="0 0 10 0">Selectionner le fichier a traiter</Button>
-                <Button x:Name="sauvegardedata" Click="sauvegardedata_Click" Margin="0 0 10 0">Sauvegarder les modifications</Button>
-                <Button x:Name="listeProduit" Click="listeProduit_Click">Liste de produits</Button>
-                <Button x:Name="ajouterProduit" Click="ajouterProduit_Click">Ajouter un produit</Button>
-                
             </StackPanel>
         </StackPanel>
         
