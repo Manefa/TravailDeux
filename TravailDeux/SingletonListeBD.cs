@@ -39,9 +39,10 @@ namespace ExerxiceNavigation
             liste.Clear();
             try
             {
-                MySqlCommand commande = new MySqlCommand();
+                MySqlCommand commande = new MySqlCommand("ObtenirTousLesProduits");
                 commande.Connection = con;
-                commande.CommandText = "Select * from produits";
+                //commande.CommandText = "Select * from produits";
+                commande.CommandType = System.Data.CommandType.StoredProcedure;
                 con.Open();
                 MySqlDataReader r = commande.ExecuteReader();
                 Produit produit;
@@ -149,18 +150,21 @@ namespace ExerxiceNavigation
         {
             try
             {
-                MySqlCommand commande = new MySqlCommand();
+                MySqlCommand commande = new MySqlCommand("AjouterProduit");
                 commande.Connection = con;
-                commande.CommandText = $"insert into produits values (@code, @modele, @meuble, @categorie, @couleur, @prix)";
+                //commande.CommandText = $"insert into produits values (@code, @modele, @meuble, @categorie, @couleur, @prix)";
 
-                commande.Parameters.AddWithValue("@code", produit.Code);
-                commande.Parameters.AddWithValue("@modele", produit.Modele);
-                commande.Parameters.AddWithValue("@meuble", produit.Meuble);
-                commande.Parameters.AddWithValue("@categorie", produit.Categorie);
-                commande.Parameters.AddWithValue("@couleur", produit.Couleur);
-                commande.Parameters.AddWithValue("@prix", produit.Prix.ToString(CultureInfo.InvariantCulture));
+                commande.CommandType = System.Data.CommandType.StoredProcedure;
+
+                commande.Parameters.AddWithValue("@p_code", produit.Code);
+                commande.Parameters.AddWithValue("@p_modele", produit.Modele);
+                commande.Parameters.AddWithValue("@p_meuble", produit.Meuble);
+                commande.Parameters.AddWithValue("@p_categorie", produit.Categorie);
+                commande.Parameters.AddWithValue("@p_couleur", produit.Couleur);
+                commande.Parameters.AddWithValue("@p_prix", produit.Prix.ToString(CultureInfo.InvariantCulture));
 
                 con.Open();
+                commande.Prepare();
                 commande.ExecuteNonQuery();
                 con.Close();
             }
@@ -190,8 +194,8 @@ namespace ExerxiceNavigation
                 commande.Parameters.AddWithValue("@prix", produit.Prix.ToString(CultureInfo.InvariantCulture));
                 commande.Parameters.AddWithValue("@code", produit.Code);
 
-
                 con.Open();
+                commande.Prepare();
                 int i = commande.ExecuteNonQuery();
                 con.Close();
             }
